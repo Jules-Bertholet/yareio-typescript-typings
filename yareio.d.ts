@@ -41,6 +41,7 @@ declare interface SpiritBase extends ArtificialEntity {
 	shout: (message: string) => void
 	set_mark: (label: string) => void
 }
+
 declare interface Circle extends SpiritBase {
 	merge: (target: Circle) => void
 	divide: () => void
