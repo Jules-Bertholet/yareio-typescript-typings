@@ -29,7 +29,7 @@ declare interface ArtificialEntity extends Entity {
 	color: string
 }
 
-declare interface Spirit extends ArtificialEntity {
+declare interface SpiritBase extends ArtificialEntity {
 	id: `${string}${number}`
 
 	merged: `${string}${number}`[] | undefined
@@ -41,8 +41,7 @@ declare interface Spirit extends ArtificialEntity {
 	shout: (message: string) => void
 	set_mark: (label: string) => void
 }
-
-declare interface Circle extends Spirit {
+declare interface Circle extends SpiritBase {
 	merge: (target: Circle) => void
 	divide: () => void
 
@@ -50,7 +49,7 @@ declare interface Circle extends Spirit {
 	shape: "circles"
 }
 
-declare interface Square extends Spirit {
+declare interface Square extends SpiritBase {
 	size: 10
 	energy_capacity: 100
 
@@ -59,12 +58,14 @@ declare interface Square extends Spirit {
 	jump: (target: Position) => void
 }
 
-declare interface Triangle extends Spirit {
+declare interface Triangle extends SpiritBase {
 	size: 10
 	energy_capacity: 100
 
 	shape: "triangles"
 }
+
+type Spirit = Circle | Square | Triangle
 
 declare interface Structure extends Entity {
 	structure_type: string
