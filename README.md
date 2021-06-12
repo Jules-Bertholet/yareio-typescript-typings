@@ -1,6 +1,6 @@
 # TypeScript typings for yare.io
 
-This repo contains TypeScript typings for yare.io, a programming game where you use Javascript to control your game units (called "spirits") and try to kill the enemy base.
+This repo contains TypeScript typings for [yare.io](https://yare.io/), a programming game where you use Javascript to control your game units (called "spirits") and try to kill the enemy base.
 
 The recommended way to use these typings is via a Git submodule: 
 1. First, in the root of your project, run `git submodule add https://github.com/Jules-Bertholet/yare-typescript-typings typings`. 
