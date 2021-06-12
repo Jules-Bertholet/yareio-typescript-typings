@@ -32,7 +32,7 @@ declare interface ArtificialEntity extends Entity {
 declare interface SpiritBase extends ArtificialEntity {
 	id: `${string}${number}`
 
-	merged: `${string}${number}`[] | undefined
+	merged: `${string}${number}`[]
 	move_speed: number
 	mark: string
 
@@ -46,7 +46,6 @@ declare interface Circle extends SpiritBase {
 	merge: (target: Circle) => void
 	divide: () => void
 
-	merged: `${string}${number}`[]
 	shape: "circles"
 }
 
