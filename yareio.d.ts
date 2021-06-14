@@ -67,41 +67,43 @@ declare interface Triangle extends SpiritBase {
 
 type Spirit = Circle | Square | Triangle
 
-declare interface Structure extends Entity {
+declare interface StructureBase extends Entity {
 	structure_type: string
 }
 
-declare interface Base extends Structure, ArtificialEntity {
+declare interface BaseBase extends StructureBase, ArtificialEntity {
 	id: `base_${string}`
 	structure_type: 'base'
 	size: 40
-	sight: Sight
 	current_spirit_cost: number
 }
 
-declare interface CircleBase extends Base {
+declare interface CircleBase extends BaseBase {
 	energy_capacity: 400
 
 	shape: "circles"
 }
 
-declare interface SquareBase extends Base {
+declare interface SquareBase extends BaseBase {
 	energy_capacity: 1000
 
 	shape: "squares"
 }
 
-declare interface TriangleBase extends Base {
+declare interface TriangleBase extends BaseBase {
 	energy_capacity: 500
 
 	shape: "triangles"
 }
 
-declare interface Star extends Structure {
+type Base = SquareBase | CircleBase | TriangleBase;
+
+declare interface Star extends StructureBase {
 	id: `star_${string}`
 	structure_type: 'star'
-	position: Position
 }
+
+type Structure = BaseBase | Star;
 
 declare interface Players {
 	p1: string
@@ -110,9 +112,9 @@ declare interface Players {
 
 declare const my_spirits: Spirit[]
 declare const spirits: Record<string, Spirit>
-declare const base: Base
-declare const enemy_base: Base
-declare const bases: Record<`base_${string}`, Base>
+declare const base: BaseBase
+declare const enemy_base: BaseBase
+declare const bases: Record<`base_${string}`, BaseBase>
 declare const star_zxq: Star
 declare const star_a1c: Star
 declare const stars: Record<`star_${string}`, Star>
