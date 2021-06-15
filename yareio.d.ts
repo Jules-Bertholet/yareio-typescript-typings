@@ -17,13 +17,12 @@ declare interface Sight extends OutpostSight {
 declare interface Entity extends Object {
 	id: string
 	position: Position
+	size: number
+	energy: number
 	last_energized: "" | `${string}${number}` | `base_${string}` | "outpost_mdo"
 }
-
 declare interface Energizable extends Entity {
-	size: number
 	energy_capacity: number
-	energy: number
 }
 declare interface Destructible extends Energizable {
 	hp: 0 | 1
@@ -74,8 +73,6 @@ type Spirit = CircleSpirit | SquareSpirit | TriangleSpirit
 
 declare interface _Structure extends Entity {
 	structure_type: string
-	size: number
-	energy: number
 }
 
 declare interface _Base extends _Structure, Destructible {
