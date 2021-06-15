@@ -20,10 +20,12 @@ declare interface Entity extends Object {
 	last_energized: "" | `${string}${number}` | `base_${string}` | "outpost_mdo"
 }
 
-declare interface ArtificialEntity extends Entity {
+declare interface Energizable extends Entity {
 	size: number
 	energy_capacity: number
 	energy: number
+}
+declare interface Destructible extends Energizable {
 	hp: 0 | 1
 	sight: Sight
 
@@ -32,7 +34,7 @@ declare interface ArtificialEntity extends Entity {
 	color: string
 }
 
-declare interface _Spirit extends ArtificialEntity {
+declare interface _Spirit extends Destructible {
 	id: `${string}${number}`
 
 	merged: `${string}${number}`[]
@@ -40,7 +42,7 @@ declare interface _Spirit extends ArtificialEntity {
 	mark: string
 
 	move: (target: Position) => void
-	energize: (target: ArtificialEntity) => void
+	energize: (target: Energizable) => void
 	shout: (message: string) => void
 	set_mark: (label: string) => void
 }
@@ -76,7 +78,7 @@ declare interface _Structure extends Entity {
 	energy: number
 }
 
-declare interface _Base extends _Structure, ArtificialEntity {
+declare interface _Base extends _Structure, Destructible {
 	id: `base_${string}`
 	structure_type: 'base'
 	size: 40
@@ -103,7 +105,7 @@ declare interface TriangleBase extends _Base {
 
 type Base = SquareBase | CircleBase | TriangleBase;
 
-interface Outpost extends _Structure {
+interface Outpost extends _Structure, Energizable {
 	id: "outpost_mdo"
 	structure_type: "outpost"
 	position: [2200, 1100]
