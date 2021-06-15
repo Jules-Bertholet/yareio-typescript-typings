@@ -4,17 +4,20 @@ declare const memory: Record<string, unknown> // You will probably want to chang
 
 declare type Position = [x: number, y: number]
 
-declare interface Sight {
+declare interface OutpostSight extends Object {
+	enemies: `${string}${number}`[]
+}
+declare interface Sight extends OutpostSight {
 	friends: `${string}${number}`[]
 	friends_beamable: `${string}${number}`[]
-	enemies: `${string}${number}`[]
 	enemies_beamable: `${string}${number}`[]
 	structures: `${string}${number}`[]
 }
 
-declare interface Entity {
-	id: string,
+declare interface Entity extends Object {
+	id: string
 	position: Position
+	last_energized: "" | `${string}${number}` | `base_${string}` | "outpost_mdo"
 }
 
 declare interface ArtificialEntity extends Entity {
@@ -29,7 +32,7 @@ declare interface ArtificialEntity extends Entity {
 	color: string
 }
 
-declare interface SpiritBase extends ArtificialEntity {
+declare interface _Spirit extends ArtificialEntity {
 	id: `${string}${number}`
 
 	merged: `${string}${number}`[]
@@ -42,14 +45,14 @@ declare interface SpiritBase extends ArtificialEntity {
 	set_mark: (label: string) => void
 }
 
-declare interface Circle extends SpiritBase {
-	merge: (target: Circle) => void
+declare interface CircleSpirit extends _Spirit {
+	merge: (target: CircleSpirit) => void
 	divide: () => void
 
 	shape: "circles"
 }
 
-declare interface Square extends SpiritBase {
+declare interface SquareSpirit extends _Spirit {
 	size: 10
 	energy_capacity: 100
 
@@ -58,39 +61,41 @@ declare interface Square extends SpiritBase {
 	jump: (target: Position) => void
 }
 
-declare interface Triangle extends SpiritBase {
+declare interface TriangleSpirit extends _Spirit {
 	size: 10
 	energy_capacity: 100
 
 	shape: "triangles"
 }
 
-type Spirit = Circle | Square | Triangle
+type Spirit = CircleSpirit | SquareSpirit | TriangleSpirit
 
-declare interface StructureBase extends Entity {
+declare interface _Structure extends Entity {
 	structure_type: string
+	size: number
+	energy: number
 }
 
-declare interface BaseBase extends StructureBase, ArtificialEntity {
+declare interface _Base extends _Structure, ArtificialEntity {
 	id: `base_${string}`
 	structure_type: 'base'
 	size: 40
 	current_spirit_cost: number
 }
 
-declare interface CircleBase extends BaseBase {
+declare interface CircleBase extends _Base {
 	energy_capacity: 400
 
 	shape: "circles"
 }
 
-declare interface SquareBase extends BaseBase {
+declare interface SquareBase extends _Base {
 	energy_capacity: 1000
 
 	shape: "squares"
 }
 
-declare interface TriangleBase extends BaseBase {
+declare interface TriangleBase extends _Base {
 	energy_capacity: 500
 
 	shape: "triangles"
@@ -98,12 +103,34 @@ declare interface TriangleBase extends BaseBase {
 
 type Base = SquareBase | CircleBase | TriangleBase;
 
-declare interface Star extends StructureBase {
+interface Outpost extends _Structure {
+	id: "outpost_mdo"
+	structure_type: "outpost"
+	position: [2200, 1100]
+	size: 20
+	energy_capacity: 1000
+	range: 400 | 600
+	sight: OutpostSight
+
+	control: string
+}
+
+declare interface _Star extends _Structure {
 	id: `star_${string}`
 	structure_type: 'star'
 }
 
-type Structure = BaseBase | Star;
+declare interface LargeStar extends _Star {
+	size: 220
+}
+
+declare interface SmallStar extends _Star {
+	size: 80
+}
+
+type Star = LargeStar | SmallStar;
+
+type Structure = Base | Outpost | Star;
 
 declare interface Players {
 	p1: string
@@ -112,11 +139,15 @@ declare interface Players {
 
 declare const my_spirits: Spirit[]
 declare const spirits: Record<string, Spirit>
-declare const base: BaseBase
-declare const enemy_base: BaseBase
-declare const bases: Record<`base_${string}`, BaseBase>
-declare const star_zxq: Star
-declare const star_a1c: Star
+declare const base: Base
+declare const enemy_base: Base
+declare const bases: Record<`base_${string}`, Base>
+declare const outpost_mdo: Outpost;
+declare const outpost = outpost_mdo;
+declare const outposts: Record<`outpost_mdo`, Outpost>
+declare const star_zxq: LargeStar
+declare const star_a1c: LargeStar
+declare const star_p89: SmallStar
 declare const stars: Record<`star_${string}`, Star>
 
 declare const this_player_id: string
