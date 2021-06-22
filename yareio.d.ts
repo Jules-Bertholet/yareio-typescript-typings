@@ -131,11 +131,6 @@ type Star = LargeStar | SmallStar;
 
 type Structure = Base | Outpost | Star;
 
-declare interface Players {
-	p1: string
-	p2: string
-}
-
 declare const my_spirits: Spirit[]
 declare const spirits: Record<string, Spirit>
 declare const base: Base
@@ -150,6 +145,9 @@ declare const star_p89: SmallStar
 declare const stars: Record<`star_${string}`, Star>
 
 declare const this_player_id: string
-declare const players: Players
+declare const players: { p1: string, p2: string }
+
+declare const tick: number
+declare const ticks: { now: number }
 
 declare const CODE_VERSION: string
