@@ -4,14 +4,22 @@ declare const memory: Record<string, unknown> // You will probably want to chang
 
 declare type Position = [x: number, y: number]
 
+declare type PlayerID = string
+
+declare type SpiritID = `${PlayerID}_${number}`
+declare type BaseID = `base_${string}`
+declare type OutpostID = `outpost_${string}`
+declare type StarID = `star_${string}`
+declare type StructureID = BaseID | OutpostID | StarID
+declare type EnergizableID = SpiritID | BaseID | OutpostID
 declare interface OutpostSight extends Object {
-	enemies: `${string}${number}`[]
+	enemies: SpiritID[]
 }
 declare interface Sight extends OutpostSight {
-	friends: `${string}${number}`[]
-	friends_beamable: `${string}${number}`[]
-	enemies_beamable: `${string}${number}`[]
-	structures: `${string}${number}`[]
+	friends: SpiritID[]
+	friends_beamable: SpiritID[]
+	enemies_beamable: SpiritID[]
+	structures: StructureID[]
 }
 
 declare interface Entity extends Object {
@@ -19,7 +27,7 @@ declare interface Entity extends Object {
 	position: Position
 	size: number
 	energy: number
-	last_energized: "" | `${string}${number}` | `base_${string}` | "outpost_mdo"
+	last_energized: "" | EnergizableID
 }
 declare interface Energizable extends Entity {
 	energy_capacity: number
@@ -28,15 +36,15 @@ declare interface Destructible extends Energizable {
 	hp: 0 | 1
 	sight: Sight
 
-	player_id: string
+	player_id: PlayerID
 	shape: "circles" | "squares" | "triangles"
 	color: string
 }
 
 declare interface _Spirit extends Destructible {
-	id: `${string}${number}`
+	id: SpiritID
 
-	merged: `${string}${number}`[]
+	merged: SpiritID[]
 	move_speed: number
 	mark: string
 
@@ -76,7 +84,7 @@ declare interface _Structure extends Entity {
 }
 
 declare interface _Base extends _Structure, Destructible {
-	id: `base_${string}`
+	id: BaseID
 	structure_type: 'base'
 	size: 40
 	current_spirit_cost: number
@@ -103,7 +111,7 @@ declare interface TriangleBase extends _Base {
 type Base = SquareBase | CircleBase | TriangleBase;
 
 interface Outpost extends _Structure, Energizable {
-	id: "outpost_mdo"
+	id: OutpostID
 	structure_type: "outpost"
 	position: [2200, 1100]
 	size: 20
@@ -111,11 +119,11 @@ interface Outpost extends _Structure, Energizable {
 	range: 400 | 600
 	sight: OutpostSight
 
-	control: string
+	control: PlayerID
 }
 
 declare interface _Star extends _Structure {
-	id: `star_${string}`
+	id: StarID
 	structure_type: 'star'
 }
 
@@ -127,6 +135,15 @@ declare interface SmallStar extends _Star {
 	size: 80
 }
 
+declare interface Graphics {
+	queue: Array
+
+	style: string
+	line: (start: Position, end: Position) => void
+	circle: (pos: Position, r: number) => void
+	square: (tl: Position, br: Position) => void
+}
+
 type Star = LargeStar | SmallStar;
 
 type Structure = Base | Outpost | Star;
@@ -135,19 +152,21 @@ declare const my_spirits: Spirit[]
 declare const spirits: Record<string, Spirit>
 declare const base: Base
 declare const enemy_base: Base
-declare const bases: Record<`base_${string}`, Base>
+declare const bases: Record<BaseID, Base>
 declare const outpost_mdo: Outpost;
 declare const outpost = outpost_mdo;
-declare const outposts: Record<`outpost_mdo`, Outpost>
+declare const outposts: Record<OutpostID, Outpost>
 declare const star_zxq: LargeStar
 declare const star_a1c: LargeStar
 declare const star_p89: SmallStar
-declare const stars: Record<`star_${string}`, Star>
+declare const stars: Record<StarID, Star>
 
-declare const this_player_id: string
-declare const players: { p1: string, p2: string }
+declare const this_player_id: PlayerID
+declare const players: { p1: PlayerID, p2: PlayerID }
 
 declare const tick: number
 declare const ticks: { now: number }
+
+declare const graphics: Graphics
 
 declare const CODE_VERSION: string
