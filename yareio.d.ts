@@ -138,8 +138,6 @@ declare interface SmallStar extends _Star {
 }
 
 declare interface Graphics {
-	queue: Array
-
 	style: string
 	linewidth: number
 	line: (start: Position, end: Position) => void
