@@ -71,8 +71,10 @@ declare interface SquareSpirit extends _Spirit {
 }
 
 declare interface TriangleSpirit extends _Spirit {
-	size: 10
-	energy_capacity: 100
+	size: 3
+	energy_capacity: 30
+
+	explode: () => void
 
 	shape: "triangles"
 }
@@ -103,7 +105,7 @@ declare interface SquareBase extends _Base {
 }
 
 declare interface TriangleBase extends _Base {
-	energy_capacity: 500
+	energy_capacity: 600
 
 	shape: "triangles"
 }
@@ -139,6 +141,7 @@ declare interface Graphics {
 	queue: Array
 
 	style: string
+	linewidth: number
 	line: (start: Position, end: Position) => void
 	circle: (pos: Position, r: number) => void
 	square: (tl: Position, br: Position) => void
