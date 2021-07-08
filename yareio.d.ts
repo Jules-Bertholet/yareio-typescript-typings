@@ -127,14 +127,21 @@ interface Outpost extends _Structure, Energizable {
 declare interface _Star extends _Structure {
 	id: StarID
 	structure_type: 'star'
+
+	active_in: number
+	active_at: number
 }
 
 declare interface LargeStar extends _Star {
 	size: 220
+
+	active_at: 0
 }
 
 declare interface SmallStar extends _Star {
 	size: 80
+
+	active_at: 100
 }
 
 declare interface Graphics {
