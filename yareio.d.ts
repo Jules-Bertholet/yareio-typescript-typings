@@ -150,7 +150,7 @@ type Star = LargeStar | SmallStar;
 type Structure = Base | Outpost | Star;
 
 declare const my_spirits: Spirit[]
-declare const spirits: Record<string, Spirit>
+declare const spirits: Record<SpiritID, Spirit>
 declare const base: Base
 declare const enemy_base: Base
 declare const bases: Record<BaseID, Base>
