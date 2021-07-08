@@ -173,7 +173,6 @@ declare const this_player_id: PlayerID
 declare const players: { p1: PlayerID, p2: PlayerID }
 
 declare const tick: number
-declare const ticks: { now: number }
 
 declare const graphics: Graphics
 
