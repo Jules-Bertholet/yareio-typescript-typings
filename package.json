@@ -1,0 +1,11 @@
+{
+  "name": "yare-types",
+  "version": "1.0.0",
+  "main": "index.d.ts",
+  "repository": "https://github.com/Jules-Bertholet/yare-typescript-typings",
+  "author": "Jules Bertholet <jules.bertholet@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "dtslint": "^4.1.2"
+  }
+}
