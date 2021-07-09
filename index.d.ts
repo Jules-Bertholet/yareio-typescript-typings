@@ -158,10 +158,10 @@ type Star = LargeStar | SmallStar;
 type Structure = Base | Outpost | Star;
 
 declare const my_spirits: CircleSpirit[] | SquareSpirit[] | TriangleSpirit[];
-declare const spirits: Record<SpiritID, Spirit>;
+declare const spirits: Record<SpiritID, (CircleSpirit | SquareSpirit)> | Record<SpiritID, (CircleSpirit | TriangleSpirit)> | Record<SpiritID, (SquareSpirit | TriangleSpirit)>;
 declare const base: Base;
 declare const enemy_base: Base;
-declare const bases: Record<BaseID, Base>;
+declare const bases: Record<BaseID, (CircleBase | SquareBase)> | Record<BaseID, (CircleBase | TriangleBase)> | Record<BaseID, (SquareBase | TriangleBase)>;
 declare const outpost_mdo: Outpost;
 declare const outpost: Outpost;
 declare const outposts: Record<OutpostID, Outpost>;
@@ -176,5 +176,7 @@ declare const players: { p1: PlayerID, p2: PlayerID };
 declare const tick: number;
 
 declare const graphics: Graphics;
+
+declare function atob(input: string): Uint8Array;
 
 declare const CODE_VERSION: string;
