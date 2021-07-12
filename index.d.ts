@@ -6,10 +6,11 @@ declare const memory: Record<string, unknown>; // You will probably want to chan
 type Position = [x: number, y: number];
 type PlayerID = string;
 type SpiritID = `${PlayerID}_${number}`;
+type StructureType = "base" | "outpost" | "star";
+type StructureID = `${StructureType}_${string}`;
 type BaseID = `base_${string}`;
 type OutpostID = `outpost_${string}`;
 type StarID = `star_${string}`;
-type StructureID = BaseID | OutpostID | StarID;
 type EnergizableID = SpiritID | BaseID | OutpostID;
 type Shape = "circles" | "squares" | "triangles";
 
@@ -84,12 +85,12 @@ interface TriangleSpirit extends _Spirit {
 type Spirit = CircleSpirit | SquareSpirit | TriangleSpirit;
 
 interface _Structure extends Entity {
-	structure_type: string;
+	structure_type: StructureType;
 }
 
 interface _Base extends _Structure, Destructible {
 	id: BaseID;
-	structure_type: 'base';
+	structure_type: "base";
 	size: 40;
 	current_spirit_cost: number;
 }
@@ -128,7 +129,7 @@ interface Outpost extends _Structure, Energizable {
 
 interface _Star extends _Structure {
 	id: StarID;
-	structure_type: 'star';
+	structure_type: "star";
 
 	active_in: number;
 	active_at: number;
