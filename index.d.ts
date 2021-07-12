@@ -11,7 +11,7 @@ type StructureID = `${StructureType}_${string}`;
 type BaseID = `base_${string}`;
 type OutpostID = `outpost_${string}`;
 type StarID = `star_${string}`;
-type EnergizableID = SpiritID | BaseID | OutpostID;
+type EntityID = SpiritID | StructureID;
 type Shape = "circles" | "squares" | "triangles";
 
 interface OutpostSight extends Object {
@@ -30,12 +30,11 @@ interface Entity extends Object {
 	position: Position;
 	size: number;
 	energy: number;
-	last_energized: "" | EnergizableID;
-}
-interface Energizable extends Entity {
+	last_energized: "" | EntityID;
 	energy_capacity: number;
 }
-interface Destructible extends Energizable {
+
+interface Destructible extends Entity {
 	hp: 0 | 1;
 	sight: Sight;
 
@@ -52,7 +51,7 @@ interface _Spirit extends Destructible {
 	mark: string;
 
 	move: (target: Position) => void;
-	energize: (target: Energizable) => void;
+	energize: (target: Entity) => void;
 	shout: (message: string) => void;
 	set_mark: (label: string) => void;
 }
@@ -115,7 +114,7 @@ interface TriangleBase extends _Base {
 
 type Base = SquareBase | CircleBase | TriangleBase;
 
-interface Outpost extends _Structure, Energizable {
+interface Outpost extends _Structure {
 	id: OutpostID;
 	structure_type: "outpost";
 	position: [2200, 1100];
