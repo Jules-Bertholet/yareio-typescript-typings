@@ -4,18 +4,19 @@
 declare const memory: Record<string, unknown>; // You will probably want to change this
 
 type Position = [x: number, y: number];
-
 type PlayerID = string;
-
 type SpiritID = `${PlayerID}_${number}`;
 type BaseID = `base_${string}`;
 type OutpostID = `outpost_${string}`;
 type StarID = `star_${string}`;
 type StructureID = BaseID | OutpostID | StarID;
 type EnergizableID = SpiritID | BaseID | OutpostID;
+type Shape = "circles" | "squares" | "triangles";
+
 interface OutpostSight extends Object {
 	enemies: SpiritID[];
 }
+
 interface Sight extends OutpostSight {
 	friends: SpiritID[];
 	friends_beamable: SpiritID[];
@@ -38,7 +39,7 @@ interface Destructible extends Energizable {
 	sight: Sight;
 
 	player_id: PlayerID;
-	shape: "circles" | "squares" | "triangles";
+	shape: Shape;
 	color: string;
 }
 
