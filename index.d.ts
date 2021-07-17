@@ -35,7 +35,7 @@ interface Entity extends Object {
 }
 
 interface Destructible extends Entity {
-	hp: 0 | 1;
+	hp: number;
 	sight: Sight;
 
 	player_id: PlayerID;
@@ -46,6 +46,7 @@ interface Destructible extends Entity {
 interface _Spirit extends Destructible {
 	id: SpiritID;
 
+	hp: 0 | 1;
 	merged: SpiritID[];
 	move_speed: number;
 	mark: string;
@@ -89,6 +90,7 @@ interface _Structure extends Entity {
 
 interface _Base extends _Structure, Destructible {
 	id: BaseID;
+	hp: 0 | 1 | 2 | 3;
 	structure_type: "base";
 	size: 40;
 	current_spirit_cost: number;
