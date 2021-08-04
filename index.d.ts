@@ -1,5 +1,5 @@
 // Minimum TypeScript Version: 4.1
-/* Type definitions for the various objects you have access to in Yare. */
+/* Type definitions for the various objects you have access to in Yare.io. */
 
 declare const memory: Record<string, unknown>; // You will probably want to change this
 
@@ -51,15 +51,15 @@ interface _Spirit extends Destructible {
 	move_speed: number;
 	mark: string;
 
-	move: (target: Position) => void;
-	energize: (target: Entity) => void;
-	shout: (message: string) => void;
-	set_mark: (label: string) => void;
+	move(target: Position): void;
+	energize(target: Entity): void;
+	shout(message: string): void;
+	set_mark(label: string): void;
 }
 
 interface CircleSpirit extends _Spirit {
-	merge: (target: CircleSpirit) => void;
-	divide: () => void;
+	merge(target: CircleSpirit): void;
+	divide(): void;
 
 	shape: "circles";
 }
@@ -70,14 +70,14 @@ interface SquareSpirit extends _Spirit {
 
 	shape: "squares";
 
-	jump: (target: Position) => void;
+	jump(target: Position): void;
 }
 
 interface TriangleSpirit extends _Spirit {
 	size: 3;
 	energy_capacity: 30;
 
-	explode: () => void;
+	explode(): void;
 
 	shape: "triangles";
 }
@@ -151,9 +151,9 @@ interface SmallStar extends _Star {
 interface Graphics {
 	style: string;
 	linewidth: number;
-	line: (start: Position, end: Position) => void;
-	circle: (pos: Position, r: number) => void;
-	square: (tl: Position, br: Position) => void;
+	line(start: Position, end: Position): void;
+	circle(pos: Position, r: number): void;
+	square(tl: Position, br: Position): void;
 }
 
 type Star = LargeStar | SmallStar;
@@ -181,5 +181,9 @@ declare const tick: number;
 declare const graphics: Graphics;
 
 declare function atob(input: string): Uint8Array;
+
+declare const console: {
+	log(...args: string[]): void;
+};
 
 declare const CODE_VERSION: string;
