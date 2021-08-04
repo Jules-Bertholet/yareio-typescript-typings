@@ -153,7 +153,7 @@ interface Graphics {
 	linewidth: number;
 	line(start: Position, end: Position): void;
 	circle(pos: Position, r: number): void;
-	square(tl: Position, br: Position): void;
+	rect(tl: Position, br: Position): void;
 }
 
 type Star = LargeStar | SmallStar;
