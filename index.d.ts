@@ -86,6 +86,7 @@ type Spirit = CircleSpirit | SquareSpirit | TriangleSpirit;
 
 interface _Structure extends Entity {
 	structure_type: StructureType;
+	collision_radius: number;
 }
 
 interface _Base extends _Structure, Destructible {
