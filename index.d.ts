@@ -90,7 +90,6 @@ interface _Structure extends Entity {
 
 interface _Base extends _Structure, Destructible {
 	id: BaseID;
-	hp: 0 | 1 | 2 | 3;
 	structure_type: "base";
 	size: 40;
 	current_spirit_cost: number;
